@@ -51,4 +51,40 @@ func TestSorting(t *testing.T) {
 }
 
 
+func BenchmarkSorters(b *testing.B) {
+    products := generateProducts(10000) // Generate 10,000 random products
+
+    b.Run("PriceSorter", func(b *testing.B) {
+        for i := 0; i < b.N; i++ {
+            ps := &PriceSorter{}
+            ps.Sort(products)
+        }
+    })
+
+    b.Run("SalesToViewRatioSorter", func(b *testing.B) {
+        for i := 0; i < b.N; i++ {
+            stvr := &SalesToViewRatioSorter{}
+            stvr.Sort(products)
+        }
+    })
+}
+
+// Helper function to generate random products
+func generateProducts(n int) []*Product {
+    products := make([]*Product, n)
+    for i := 0; i < n; i++ {
+        p := &Product{
+            ID:          i + 1,
+            Name:        fmt.Sprintf("Product %d", i+1),
+            Price:       rand.Float64() * 100,
+            CreatedDate: time.Now().AddDate(0, 0, -rand.Intn(365)),
+            SalesCount:  rand.Intn(1000),
+            ViewsCount:  rand.Intn(10000),
+        }
+        products[i] = p
+    }
+    return products
+}
+
+
 

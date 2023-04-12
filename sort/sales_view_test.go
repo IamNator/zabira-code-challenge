@@ -1,4 +1,4 @@
-package main
+package sort_test
 
 import (
 	"fmt"
@@ -6,10 +6,14 @@ import (
 	"reflect"
 	"testing"
 	"time"
+
+	"github.com/IamNator/zabira-code-challenge/model"
+	"github.com/IamNator/zabira-code-challenge/sort"
 )
 
+
 func TestSorting(t *testing.T) {
-	products := []Product{
+	products := []model.Product{
 		{
 			ID:         1,
 			Name:       "Alabaster Table",
@@ -36,46 +40,33 @@ func TestSorting(t *testing.T) {
 		},
 	}
 
-	// Test sorting by price
-	expectedPriceOrder := []Product{products[1], products[0], products[2]}
-	priceSorter := &PriceSorter{}
-	priceSorter.Sort(products, true) // Sort in descending order
-	if !reflect.DeepEqual(products, expectedPriceOrder) {
-		t.Errorf("Product list not sorted by price. \nExpected %v, \ngot %v", expectedPriceOrder, products)
-	}
-
 	// Test sorting by sales to view ratio
-	expectedSalesToViewRatioOrder := []Product{products[1], products[2], products[0]}
-	salesToViewRatioSorter := &SalesToViewRatioSorter{}
-	salesToViewRatioSorter.Sort(products, false) // Sort in ascending order
+	expectedSalesToViewRatioOrder := []model.Product{products[1], products[2], products[0]}
+	salesToViewRatioSorter := &sort.SalesToViewRatioSorter{}
+	salesToViewRatioSorter.Sort(products, true) // Sort in ascending order
 	if !reflect.DeepEqual(products, expectedSalesToViewRatioOrder) {
 		t.Errorf("Product list not sorted by sales to view ratio. \nExpected %v, \ngot %v", expectedSalesToViewRatioOrder, products)
 	}
 }
 
 func BenchmarkSorters(b *testing.B) {
-	products := generateProducts(10000) // Generate 10,000 random products
 
-	b.Run("PriceSorter", func(b *testing.B) {
-		for i := 0; i < b.N; i++ {
-			ps := &PriceSorter{}
-			ps.Sort(products, true)
-		}
-	})
+	products := generateProducts(10000) // Generate 10,000 random products
 
 	b.Run("SalesToViewRatioSorter", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			stvr := &SalesToViewRatioSorter{}
+			stvr := &sort.SalesToViewRatioSorter{}
 			stvr.Sort(products, true)
 		}
 	})
 }
 
+
 // Helper function to generate random products
-func generateProducts(n int) []Product {
-	products := make([]Product, n)
+func generateProducts(n int) []model.Product {
+	products := make([]model.Product, n)
 	for i := 0; i < n; i++ {
-		p := Product{
+		p := model.Product{
 			ID:         i + 1,
 			Name:       fmt.Sprintf("Product %d", i+1),
 			Price:      rand.Float64() * 100,

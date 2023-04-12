@@ -2,69 +2,22 @@ package main
 
 import (
 	"fmt"
-	"sort"
 	"time"
+
+	"github.com/IamNator/zabira-code-challenge/model"
+	"github.com/IamNator/zabira-code-challenge/sort"
 )
 
-type Product struct {
-	ID         int
-	Name       string
-	Price      float64
-	Created    time.Time
-	SalesCount int
-	ViewsCount int
-}
-
-// helps for debugging
-func (p Product) String() string {
-	return fmt.Sprintf(`
-	--------------------
-	ID: %d, 
-	Name: %s, 
-	Price: %.2f, 
-	Created: %s, 
-	SalesCount: %d, 
-	ViewsCount: %d 
-
-	metadata: {
-		sales/views: %.2f
-	}
-	`,
-		p.ID, p.Name, p.Price, p.Created.Format("2006-01-02"), p.SalesCount, p.ViewsCount, float64(p.SalesCount)/float64(p.ViewsCount))
-}
-
 type ProductSorter interface {
-	Sort(products []Product, desc bool)
+	Sort(products []model.Product, desc bool)
 }
 
-type PriceSorter struct{}
-
-func (ps *PriceSorter) Sort(products []Product, desc bool) {
-	sort.Slice(products, func(i, j int) bool {
-		if desc {
-			return products[i].Price > products[j].Price
-		}
-		return products[i].Price < products[j].Price
-	})
-}
-
-type SalesToViewRatioSorter struct{}
-
-func (svrs *SalesToViewRatioSorter) Sort(products []Product, desc bool) {
-	sort.Slice(products, func(i, j int) bool {
-
-		salesToViewRatioI := float64(products[i].SalesCount) / float64(products[i].ViewsCount)
-		salesToViewRatioJ := float64(products[j].SalesCount) / float64(products[j].ViewsCount)
-
-		if desc {
-			return salesToViewRatioI > salesToViewRatioJ
-		}
-		return salesToViewRatioI < salesToViewRatioJ
-	})
+func Sort(products []model.Product, sorter ProductSorter, desc bool) {
+	sorter.Sort(products, desc)
 }
 
 func main() {
-	products := []Product{
+	products := []model.Product{
 		{
 			ID:         1,
 			Name:       "Alabaster Table",
@@ -91,13 +44,11 @@ func main() {
 		},
 	}
 
-	priceSorter := &PriceSorter{}
-	priceSorter.Sort(products, true)
-
+	priceSorter := &sort.PriceSorter{}
+	Sort(products, priceSorter, true)
 	fmt.Println("\n Sorted by price: ", products)
 
-	salesToViewRatioSorter := &SalesToViewRatioSorter{}
-	salesToViewRatioSorter.Sort(products, true)
-
+	salesToViewRatioSorter := &sort.SalesToViewRatioSorter{}
+	Sort(products, salesToViewRatioSorter, false)
 	fmt.Println("\n Sorted by sales to view ratio:", products)
 }

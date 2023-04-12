@@ -31,25 +31,25 @@ func TestSorting(t *testing.T) {
 			Name:       "Coffee Table",
 			Price:      10.00,
 			Created:    time.Date(2014, 5, 28, 0, 0, 0, 0, time.UTC), //"2014-05-28"
-			SalesCount: 1048,                                         //sales/views = 0.32
+			SalesCount: 1048,                                         //sales/views = 0.05
 			ViewsCount: 20123,
 		},
 	}
 
 	// Test sorting by price
-	expectedPriceOrder := []Product{products[2], products[0], products[1]}
+	expectedPriceOrder := []Product{products[1], products[0], products[2]}
 	priceSorter := &PriceSorter{}
-	priceSorter.Sort(products, true)
+	priceSorter.Sort(products, true) // Sort in descending order
 	if !reflect.DeepEqual(products, expectedPriceOrder) {
-		t.Errorf("Product list not sorted by price. Expected %v, got %v", expectedPriceOrder, products)
+		t.Errorf("Product list not sorted by price. \nExpected %v, \ngot %v", expectedPriceOrder, products)
 	}
 
 	// Test sorting by sales to view ratio
-	expectedSalesToViewRatioOrder := []Product{products[1], products[0], products[2]}
+	expectedSalesToViewRatioOrder := []Product{products[1], products[2], products[0]}
 	salesToViewRatioSorter := &SalesToViewRatioSorter{}
-	salesToViewRatioSorter.Sort(products, true)
+	salesToViewRatioSorter.Sort(products, false) // Sort in ascending order
 	if !reflect.DeepEqual(products, expectedSalesToViewRatioOrder) {
-		t.Errorf("Product list not sorted by sales to view ratio. Expected %v, got %v", expectedSalesToViewRatioOrder, products)
+		t.Errorf("Product list not sorted by sales to view ratio. \nExpected %v, \ngot %v", expectedSalesToViewRatioOrder, products)
 	}
 }
 

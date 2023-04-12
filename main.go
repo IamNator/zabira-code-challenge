@@ -22,8 +22,13 @@ func (p Product) String() string {
 	Price: %.2f, 
 	Created: %s, 
 	SalesCount: %d, 
-	ViewsCount: %d`,
-		p.ID, p.Name, p.Price, p.Created.Format("2006-01-02"), p.SalesCount, p.ViewsCount)
+	ViewsCount: %d 
+
+	metadata: {
+		sales/views: %.2f
+	}
+	`,
+		p.ID, p.Name, p.Price, p.Created.Format("2006-01-02"), p.SalesCount, p.ViewsCount, float64(p.SalesCount)/float64(p.ViewsCount))
 }
 
 type ProductSorter interface {
@@ -87,10 +92,10 @@ func main() {
 	priceSorter := &PriceSorter{}
 	priceSorter.Sort(products, true)
 
-	fmt.Println("Sorted by price:", products)
+	fmt.Println("\n Sorted by price: ", products)
 
 	salesToViewRatioSorter := &SalesToViewRatioSorter{}
 	salesToViewRatioSorter.Sort(products, true)
 
-	fmt.Println("Sorted by sales to view ratio:", products)
+	fmt.Println("\n Sorted by sales to view ratio:", products)
 }

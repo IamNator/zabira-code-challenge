@@ -15,8 +15,10 @@ type Product struct {
 	ViewsCount int
 }
 
+// helps for debugging
 func (p Product) String() string {
 	return fmt.Sprintf(`
+	--------------------
 	ID: %d, 
 	Name: %s, 
 	Price: %.2f, 

@@ -11,7 +11,6 @@ import (
 	"github.com/IamNator/zabira-code-challenge/sort"
 )
 
-
 func TestSorting(t *testing.T) {
 	products := []model.Product{
 		{
@@ -61,13 +60,12 @@ func BenchmarkSorters(b *testing.B) {
 	})
 }
 
-
 // Helper function to generate random products
 func generateProducts(n int) []model.Product {
 	products := make([]model.Product, n)
 	for i := 0; i < n; i++ {
 		p := model.Product{
-			ID:         i + 1,
+			ID:         uint(i) + 1,
 			Name:       fmt.Sprintf("Product %d", i+1),
 			Price:      rand.Float64() * 100,
 			Created:    time.Now().AddDate(0, 0, -rand.Intn(365)),

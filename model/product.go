@@ -6,12 +6,12 @@ import (
 )
 
 type Product struct {
-	ID         int
+	ID         uint // unique identifier
 	Name       string
 	Price      float64
-	Created    time.Time
-	SalesCount int
-	ViewsCount int
+	Created    time.Time // used the time.Time type to make it easier to sort by date and to make it easier to format the date
+	SalesCount int       //made it an int to make it easier to sort by sales to view ratio  but it could be a uint
+	ViewsCount int       //made it an int to make it easier to sort by sales to view ratio  but it could be a uint
 }
 
 // helps for debugging

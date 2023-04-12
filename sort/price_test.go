@@ -39,8 +39,10 @@ func TestPriceSorter(t *testing.T) {
 
 	// Test sorting by price
 	expectedPriceOrder := []model.Product{products[1], products[0], products[2]}
-	priceSorter := &sort.PriceSorter{}
-	priceSorter.Sort(products, true) // Sort in descending order
+	priceSorter := &sort.PriceSorter{
+		Desc: true,
+	}
+	priceSorter.Sort(products) // Sort in descending order
 	if !reflect.DeepEqual(products, expectedPriceOrder) {
 		t.Errorf("Product list not sorted by price. \nExpected %v, \ngot %v", expectedPriceOrder, products)
 	}
@@ -52,8 +54,10 @@ func BenchmarkPriceSorter(b *testing.B) {
 
 	b.Run("PriceSorter", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			ps := &sort.PriceSorter{}
-			ps.Sort(products, true)
+			ps := &sort.PriceSorter{
+				Desc: true,
+			}
+			ps.Sort(products)
 		}
 	})
 }

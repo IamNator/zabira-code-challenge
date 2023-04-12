@@ -41,8 +41,10 @@ func TestSorting(t *testing.T) {
 
 	// Test sorting by sales to view ratio
 	expectedSalesToViewRatioOrder := []model.Product{products[1], products[2], products[0]}
-	salesToViewRatioSorter := &sort.SalesToViewRatioSorter{}
-	salesToViewRatioSorter.Sort(products, true) // Sort in ascending order
+	salesToViewRatioSorter := &sort.SalesToViewRatioSorter{
+		Desc: true,
+	}
+	salesToViewRatioSorter.Sort(products) // Sort in ascending order
 	if !reflect.DeepEqual(products, expectedSalesToViewRatioOrder) {
 		t.Errorf("Product list not sorted by sales to view ratio. \nExpected %v, \ngot %v", expectedSalesToViewRatioOrder, products)
 	}
@@ -54,8 +56,10 @@ func BenchmarkSorters(b *testing.B) {
 
 	b.Run("SalesToViewRatioSorter", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			stvr := &sort.SalesToViewRatioSorter{}
-			stvr.Sort(products, true)
+			stvr := &sort.SalesToViewRatioSorter{
+				Desc: true,
+			}
+			stvr.Sort(products)
 		}
 	})
 }

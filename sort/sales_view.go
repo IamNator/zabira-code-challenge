@@ -6,15 +6,20 @@ import (
 	"github.com/IamNator/zabira-code-challenge/model"
 )
 
-type SalesToViewRatioSorter struct{} // Sorts products by sales to view ratio
-
-// Sort sorts the products by sales to view ratio
-// If desc is true, the products are sorted in descending order
-// If desc is false, the products are sorted in ascending order
+// Sorts products by sales to view ratio
 //
-// Bool is used instead of int to make the interface more readable
-// and to avoid any confusion about the meaning of the int or string value (e.g. 0 = ascending, 1 = descending) or ("asc" = ascending [ASC, aSc ...], "desc" = descending [DESC, dEsc ...]])
-func (svrs *SalesToViewRatioSorter) Sort(products []model.Product, desc bool) {
+// you can opt out of using the default algorithm by passing in a custom algorithm to the Alg field
+type SalesToViewRatioSorter struct {
+	Desc bool
+	Alg  func([]model.Product) func(i, j int) bool
+}
+
+func (svrs SalesToViewRatioSorter) Sort(products []model.Product) {
+
+	if svrs.Alg != nil {
+		sort.Slice(products, svrs.Alg(products))
+		return
+	}
 
 	//
 	// There is duplication here, but I think it's better to have the code duplicated
@@ -24,7 +29,7 @@ func (svrs *SalesToViewRatioSorter) Sort(products []model.Product, desc bool) {
 	// Doing it this way, the compiler can optimize the code and only check the condition once
 	//
 
-	if desc {
+	if svrs.Desc {
 
 		sort.Slice(products, func(i, j int) bool {
 
@@ -32,7 +37,6 @@ func (svrs *SalesToViewRatioSorter) Sort(products []model.Product, desc bool) {
 			salesToViewRatioJ := float64(products[j].SalesCount) / float64(products[j].ViewsCount)
 
 			return salesToViewRatioI > salesToViewRatioJ // previous sales to view ratio > current sales to view ratio [descending]
-
 		})
 
 		return

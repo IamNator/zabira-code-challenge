@@ -6,15 +6,20 @@ import (
 	"github.com/IamNator/zabira-code-challenge/model"
 )
 
-type PriceSorter struct{} // Sorts products by price
-
-// Sort sorts the products by price
-// If desc is true, the products are sorted in descending order
-// If desc is false, the products are sorted in ascending order
+// Sorts products by price
 //
-// Bool is used instead of int to make the interface more readable
-// and to avoid any confusion about the meaning of the int or string value (e.g. 0 = ascending, 1 = descending) or ("asc" = ascending [ASC, aSc ...], "desc" = descending [DESC, dEsc ...]])
-func (ps *PriceSorter) Sort(products []model.Product, desc bool) {
+// you can opt out of using the default algorithm by passing in a custom algorithm to the Alg field
+type PriceSorter struct {
+	Desc bool
+	Alg  func([]model.Product) func(i, j int) bool
+}
+
+func (ps PriceSorter) Sort(products []model.Product) {
+
+	if ps.Alg != nil {
+		sort.Slice(products, ps.Alg(products))
+		return
+	}
 
 	//
 	// There is duplication here, but I think it's better to have the code duplicated
@@ -24,7 +29,7 @@ func (ps *PriceSorter) Sort(products []model.Product, desc bool) {
 	// Doing it this way, the compiler can optimize the code and only check the condition once
 	//
 
-	if desc {
+	if ps.Desc {
 		sort.Slice(products, func(i, j int) bool {
 			return products[i].Price > products[j].Price // previous price > current price [descending]
 		})

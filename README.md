@@ -33,7 +33,7 @@ Then, run bench test
     $ go test -bench=.
 ```
 
-<img alt="running bench test" src=".github/images/bench.png">
+<img alt="running bench test .." src=".github/images/bench.png">
 
 ### Problem Statement
 

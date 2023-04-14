@@ -86,7 +86,7 @@ In designing the ProductSorter interface in the sort package, I did not implemen
 <img alt="testing price sorter" src=".github/images/price_test.png">
 
 
-#### Testing Sort by `sales:views`
+#### Testing Sort by `sales:views` ratio
 
 ``` ./sort/sales_view_test.go```
 

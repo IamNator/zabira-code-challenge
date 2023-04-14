@@ -21,15 +21,19 @@ To run tests
     $ go test ./...
 ```
 
+<img alt="running tests" src=".github/images/test.png">
+
 #### Running Bench Test
 First navigate to the sort dir
 ```
-    $ ch sort
+    $ cd sort
 ```
 Then, run bench test
 ```
     $ go test -bench=.
 ```
+
+<img alt="running bench test" src=".github/images/bench.png">
 
 ### Problem Statement
 

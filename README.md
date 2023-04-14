@@ -1,25 +1,58 @@
 # zabira-code-challenge
 
+### How to run
 
-For this particular use case, I was asked to create a sorting solution that is extensible so that different teams can easily add their own sorters without affecting existing code. 
+First Clone the repo with
+```
+    $ git clone git@github.com:IamNator/zabira-code-challenge.git
+```
+Then
+```
+    $ cd zabira-code-challenge/
+```
+Next, run the program
+```
+    $ go run main.go
+```
+
+### Testing
+To run tests
+```
+    $ go test ./...
+```
+
+#### Running Bench Test
+First navigate to the sort dir
+```
+    $ ch sort
+```
+Then, run bench test
+```
+    $ go test -bench=.
+```
+
+### Problem Statement
+
+I was asked to create a sorting solution that is extensible so that different teams can easily add their own sorters without affecting existing code. 
+
+<img alt="problem statement" src=".github/images/problem.png">
+
+
+### My Solution
 
 Using an OOP approach, as demonstrated in my implementation, can make the code more modular and easier to extend. By creating an interface for sorters and implementing that interface in different sorter classes/objects, the team can add new sorting algorithms without changing the existing code. This approach promotes code reuse and separates concerns, which can lead to a more maintainable and extensible codebase.
 
+#### Directory Tree
 
-### Running 
+I created a `sort` packge to implement objects that fulfill the ProductSorter interface
 
-``` go run main.go ```
+<img alt="directory tree" src=".github/images/dir.png">
 
-<img width="1680" alt="Screenshot 2023-04-12 at 15 51 31" src="https://user-images.githubusercontent.com/43158886/231497566-ccabbe87-75fe-44e2-b89d-39160dc5c91e.png">
+#### `sort` Package
 
-### Test 
+The sort package describes the ProductSorter interface, it also contains implementation for the interface
 
-``` go test ./... ```
+<img alt="product sorter interface" src=".github/images/sorter.png">
 
-<img width="1680" alt="Screenshot 2023-04-12 at 15 57 24" src="https://user-images.githubusercontent.com/43158886/231497965-ed9cebe9-5be8-4799-8904-c45bc5f3fdce.png">
-
-## Bench Test 
-``` go test -bench=. ```
-
-<img width="1680" alt="Screenshot 2023-04-12 at 15 55 05" src="https://user-images.githubusercontent.com/43158886/231497378-93f8e1fc-ae8a-4830-ac07-6e8b1148ffe3.png">
+##### Sort by `Price`
 

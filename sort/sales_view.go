@@ -24,8 +24,18 @@ func (svrs SalesToViewRatioSorter) Sort(products []model.Product) {
 	//
 	// There is duplication here, but I think it's better to have the code duplicated
 	//
-	// My reasoning is that every time the loop is executed, the compiler has to check if the condition is true
+	// The alternative would be:
 	//
+	// sort.Slice(products, func(i, j int) bool { 
+	// 		salesToViewRatioI := float64(products[i].SalesCount) / float64(products[i].ViewsCount)
+	// 		salesToViewRatioJ := float64(products[j].SalesCount) / float64(products[j].ViewsCount)
+	//
+	// 		if ps.Desc { //every time the loop is executed, the compiler has to check if the condition is true
+	// 			return salesToViewRatioI > salesToViewRatioJ // previous sales to view ratio > current sales to view ratio [descending]
+	// 		}
+	// 		return salesToViewRatioI < salesToViewRatioJ // previous sales to view ratio < current sales to view ratio [ascending]
+	// 	})
+	// 
 	// Doing it this way, the compiler can optimize the code and only check the condition once
 	//
 

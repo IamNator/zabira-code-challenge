@@ -22,9 +22,18 @@ func (ps PriceSorter) Sort(products []model.Product) {
 	}
 
 	//
-	// There is duplication here, but I think it's better to have the code duplicated
+	// There is duplication here, but I think it's better to have the code duplicated 
 	//
-	// My reasoning is that every time the loop is executed, the compiler has to check if the condition is true
+	// The alternative would be:
+	//
+	// sort.Slice(products, func(i, j int) bool { 
+	// 	if ps.Desc { //every time the loop is executed, the compiler has to check if the condition is true
+	// 		return products[i].Price > products[j].Price // previous price < current price [ascending]
+	// 	}
+	// 	return products[i].Price < products[j].Price // previous price < current price [ascending]
+	// })
+	// 
+	// 
 	//
 	// Doing it this way, the compiler can optimize the code and only check the condition once
 	//

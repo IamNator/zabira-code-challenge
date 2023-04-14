@@ -10,7 +10,7 @@ Then
 ```
     $ cd zabira-code-challenge/
 ```
-Next, run the program [output](".github/images/run.png")
+Next, run the program [output](.github/images/run.png)
 ```
     $ go run main.go
 ```

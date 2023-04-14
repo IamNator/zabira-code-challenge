@@ -40,7 +40,11 @@ I was asked to create a sorting solution that is extensible so that different te
 
 ### My Solution
 
-Using an OOP approach, as demonstrated in my implementation, can make the code more modular and easier to extend. By creating an interface for sorters and implementing that interface in different sorter classes/objects, the team can add new sorting algorithms without changing the existing code. This approach promotes code reuse and separates concerns, which can lead to a more maintainable and extensible codebase.
+Using an OOP approach, as demonstrated in my implementation, can make the code more modular and easier to extend. By creating an interface for sorters and implementing that interface in different sorter objects, the team can add new sorting algorithms without changing the existing code. This approach promotes code reuse and separates concerns, which can lead to a more maintainable and extensible codebase.
+
+#### How I used the solution
+
+<img alt="main package" src=".github/images/main.png">
 
 #### Directory Tree
 
@@ -48,13 +52,15 @@ I created a `sort` packge to implement objects that fulfill the ProductSorter in
 
 <img alt="directory tree" src=".github/images/dir.png">
 
-
-
 #### `sort` Package
 
 ``` ./sort/sort.go```
 
-The sort package describes the ProductSorter interface, it also contains implementation for the interface
+The `sort` package includes code that helps sort products. It contains an interface called ProductSorter and provides ways to implement the interface.
+
+In designing the ProductSorter interface in the sort package, I did not implement the singleton pattern because it was not necessary. The purpose of ProductSorter is to provide a simple and straightforward way to sort products, it does not work on external resources such as networks or files. 
+
+<b>However</b>, if I had designed an interface that required access to external resources, such as a database or third-party client, then it would have been advisable to use the singleton pattern. This would ensure that only one instance of the interface exists throughout the application's lifecycle, preventing resource exhaustion or conflicts and allowing for efficient use of the external resource via dependency injection.
 
 <img alt="product sorter interface" src=".github/images/sorter.png">
 

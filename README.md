@@ -10,7 +10,7 @@ Then
 ```
     $ cd zabira-code-challenge/
 ```
-Next, run the program [output](.github/images/run.png)
+Next, run the program [output](#OUTPUT)
 ```
     $ go run main.go
 ```
@@ -62,10 +62,6 @@ I created a `sort` packge to implement objects that fulfill the ProductSorter in
 
 The `sort` package includes code that helps sort products. It contains an interface called ProductSorter and provides ways to implement the interface.
 
-In designing the ProductSorter interface in the sort package, I did not implement the singleton pattern because it was not necessary. The purpose of ProductSorter is to provide a simple and straightforward way to sort products, it does not work on external resources such as networks or files. 
-
-<b>However</b>, if I had designed an interface that required access to external resources, such as a database or third-party client, then it would have been advisable to use the singleton pattern. This would ensure that only one instance of the interface exists throughout the application's lifecycle, preventing resource exhaustion or conflicts and allowing for efficient use of the external resource via dependency injection.
-
 <img alt="product sorter interface" src=".github/images/sorter.png">
 
 ##### Sort by `Price`
@@ -94,6 +90,11 @@ In designing the ProductSorter interface in the sort package, I did not implemen
 
 ``` ./sort/sales_view_test.go```
 
-<img alt="testing sales:views sorter" src=".github/images/sales_test.png">
+<img alt="testing sales:views sorter" src=".github/images/sales_test.png">   
 
 
+---
+
+## OUTPUT
+
+<img alt="testing sales:views sorter" src=".github/images/run.png">   

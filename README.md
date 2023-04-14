@@ -48,11 +48,42 @@ I created a `sort` packge to implement objects that fulfill the ProductSorter in
 
 <img alt="directory tree" src=".github/images/dir.png">
 
+
+
 #### `sort` Package
+
+``` ./sort/sort.go```
 
 The sort package describes the ProductSorter interface, it also contains implementation for the interface
 
 <img alt="product sorter interface" src=".github/images/sorter.png">
 
 ##### Sort by `Price`
+
+``` ./sort/price.go```
+
+<img alt="price sorter" src=".github/images/price.png">
+
+##### Sort by Sales count to View count ration `sales:views`
+
+``` ./sort/sales_view.go```
+
+<img alt="sales:views sorter" src=".github/images/sales.png">
+
+
+### Tests
+
+#### Testing Sort by `Price`
+
+``` ./sort/price_test.go```
+
+<img alt="testing price sorter" src=".github/images/price_test.png">
+
+
+#### Testing Sort by `sales:views`
+
+``` ./sort/sales_view_test.go```
+
+<img alt="testing sales:views sorter" src=".github/images/sales_test.png">
+
 
